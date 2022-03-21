@@ -7,9 +7,7 @@ var methodOverride = require('method-override')
 const ejs = require('ejs')
 const app = express()
 
-mongoose.connect(
-  'mongodb+srv://ustunmelih:65679497@cluster0.r32jb.mongodb.net/test?authSource=admin&replicaSet=atlas-hhp1o1-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true'
-)
+mongoose.connect('Your connection')
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(
