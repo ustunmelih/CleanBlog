@@ -1,34 +1,40 @@
 const express = require('express')
+const mongoose = require('mongoose')
+const Post = require('./models/Post')
+const pageControllers = require('./controllers/pageControllers')
+const postControllers = require('./controllers/postControllers')
+var methodOverride = require('method-override')
 const ejs = require('ejs')
-const path = require('path')
-
 const app = express()
 
-//template engine
+mongoose.connect(
+  'mongodb+srv://ustunmelih:65679497@cluster0.r32jb.mongodb.net/test?authSource=admin&replicaSet=atlas-hhp1o1-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true'
+)
 app.set('view engine', 'ejs')
-
-//middleware
 app.use(express.static('public'))
+app.use(
+  methodOverride('_method', {
+    methods: ['POST', 'GET'],
+  })
+)
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
-//routes
-app.get('/', (req, res) => {
-  res.render('index')
-})
+app.get('/', pageControllers.getCratePostPage)
+app.get('/posts/:id', pageControllers.getSinglePostPage)
+app.get('/about', pageControllers.getAboutPage)
+app.get('/post', pageControllers.getPostPage)
 
-app.get('/about', (req, res) => {
-  res.render('about')
+app.post('/posts', async (req, res) => {
+  await Post.create(req.body)
+  res.redirect('/')
 })
+app.get('/posts/update/:id', pageControllers.getUpdatePage)
 
-app.get('/addpost', (req, res) => {
-  res.render('add_post')
-})
-
-app.get('/add', (req, res) => {
-  res.render('post')
-})
+app.put('/posts/:id', postControllers.putPost)
+app.delete('/posts/:id', postControllers.deletePost)
 
 const port = 8080
-
 app.listen(port, () => {
-  console.log(`server running on ${port}`)
+  console.log(`Server running on ${port}`)
 })

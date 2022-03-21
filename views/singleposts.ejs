@@ -21,20 +21,15 @@
       </div>
     </div>
   </header>
-
-  <!-- Post Content -->
-  <form class="col-md-10 mx-auto" method="post" action="/posts">
-    <div class="form-group">
-      <label>Title</label>
-      <input type="text" name="title" class="form-control"   placeholder="Write a Title">
-      
-    </div>
-    <div class="form-group">
-      <label>Details</label><br>
-      <textarea name="detail" id="detail" cols="20"  rows="4" placeholder="Write a detail"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  <figure>
+    <blockquote class="blockquote">
+      <h2><p><%= post.title %></p></h2>
+    </blockquote>
+    <figcaption class="blockquote-footer">
+      <h3><%= post.detail %></h3>
+    </figcaption>
+    <br><span style="color: 	#006400;"><label style="margin-right: 30px; font-weight: bold;">Oluşturulma Tarihi:</label><%= post.dateCreate %></span>
+  </figure>
 
   <hr>
 
